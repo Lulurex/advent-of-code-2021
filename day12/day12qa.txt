@@ -1,0 +1,312 @@
+QF-bw
+end-ne
+po-ju
+QF-lo
+po-start
+XL-ne
+bw-US
+ne-lo
+nu-ne
+bw-po
+QF-ne
+ne-ju
+start-lo
+lo-XL
+QF-ju
+end-ju
+XL-end
+bw-ju
+nu-start
+lo-nu
+nu-XL
+xb-XL
+XL-po
+
+--- Day 12: Passage Pathing ---
+
+With your submarine's subterranean subsystems subsisting suboptimally, the only way you're getting out of this cave anytime soon is by finding a path yourself. Not just a path - the only way to know if you've found the best path is to find all of them.
+
+Fortunately, the sensors are still mostly working, and so you build a rough map of the remaining caves (your puzzle input). For example:
+
+start-A
+start-b
+A-c
+A-b
+b-d
+A-end
+b-end
+
+This is a list of how all of the caves are connected. You start in the cave named start, and your destination is the cave named end. An entry like b-d means that cave b is connected to cave d - that is, you can move between them.
+
+So, the above cave system looks roughly like this:
+
+    start
+    /   \
+c--A-----b--d
+    \   /
+     end
+
+Your goal is to find the number of distinct paths that start at start, end at end, and don't visit small caves more than once. There are two types of caves: big caves (written in uppercase, like A) and small caves (written in lowercase, like b). It would be a waste of time to visit any small cave more than once, but big caves are large enough that it might be worth visiting them multiple times. So, all paths you find should visit small caves at most once, and can visit big caves any number of times.
+
+Given these rules, there are 10 paths through this example cave system:
+
+start,A,b,A,c,A,end
+start,A,b,A,end
+start,A,b,end
+start,A,c,A,b,A,end
+start,A,c,A,b,end
+start,A,c,A,end
+start,A,end
+start,b,A,c,A,end
+start,b,A,end
+start,b,end
+
+(Each line in the above list corresponds to a single path; the caves visited by that path are listed in the order they are visited and separated by commas.)
+
+Note that in this cave system, cave d is never visited by any path: to do so, cave b would need to be visited twice (once on the way to cave d and a second time when returning from cave d), and since cave b is small, this is not allowed.
+
+Here is a slightly larger example:
+
+dc-end
+HN-start
+start-kj
+dc-start
+dc-HN
+LN-dc
+HN-end
+kj-sa
+kj-HN
+kj-dc
+
+The 19 paths through it are as follows:
+
+start,HN,dc,HN,end
+start,HN,dc,HN,kj,HN,end
+start,HN,dc,end
+start,HN,dc,kj,HN,end
+start,HN,end
+start,HN,kj,HN,dc,HN,end
+start,HN,kj,HN,dc,end
+start,HN,kj,HN,end
+start,HN,kj,dc,HN,end
+start,HN,kj,dc,end
+start,dc,HN,end
+start,dc,HN,kj,HN,end
+start,dc,end
+start,dc,kj,HN,end
+start,kj,HN,dc,HN,end
+start,kj,HN,dc,end
+start,kj,HN,end
+start,kj,dc,HN,end
+start,kj,dc,end
+
+Finally, this even larger example has 226 paths through it:
+
+fe-end
+he-DX
+fs-he
+start-DX
+pj-DX
+end-zg
+zg-sl
+zg-pj
+pj-he
+RW-he
+fs-DX
+pj-RW
+zg-RW
+start-pj
+he-WI
+zh-he
+pj-fs
+start-RW
+
+How many paths through this cave system are there that visit small caves at most once?
+
+A graph is a pictorial representation of a set of objects where some pairs of objects are connected by links. The interconnected objects are represented by points termed as vertices, and the links that connect the vertices are called edges. The various terms and functionalities associated with a graph is described in great detail in our tutorial here.
+
+In this chapter we are going to see how to create a graph and add various data elements to it using a python program. Following are the basic operations we perform on graphs.
+
+    Display graph vertices
+    Display graph edges
+    Add a vertex
+    Add an edge
+    Creating a graph
+
+A graph can be easily presented using the python dictionary data types. We represent the vertices as the keys of the dictionary and the connection between the vertices also called edges as the values in the dictionary.
+
+Take a look at the following graph −
+Array Declaration
+
+In the above graph,
+
+V = {a, b, c, d, e}
+E = {ab, ac, bd, cd, de}
+
+Example
+
+We can present this graph in a python program as below −
+
+# Create the dictionary with graph elements
+graph = { 
+   "a" : ["b","c"],
+   "b" : ["a", "d"],
+   "c" : ["a", "d"],
+   "d" : ["e"],
+   "e" : ["d"]
+}
+# Print the graph 		 
+print(graph)
+
+Output
+
+When the above code is executed, it produces the following result −
+
+{'c': ['a', 'd'], 'a': ['b', 'c'], 'e': ['d'], 'd': ['e'], 'b': ['a', 'd']}
+
+Display graph vertices
+
+To display the graph vertices we simple find the keys of the graph dictionary. We use the keys() method.
+
+class graph:
+   def __init__(self,gdict=None):
+      if gdict is None:
+         gdict = []
+      self.gdict = gdict
+# Get the keys of the dictionary
+   def getVertices(self):
+      return list(self.gdict.keys())
+# Create the dictionary with graph elements
+graph_elements = { 
+   "a" : ["b","c"],
+   "b" : ["a", "d"],
+   "c" : ["a", "d"],
+   "d" : ["e"],
+   "e" : ["d"]
+}
+g = graph(graph_elements)
+print(g.getVertices())
+
+Output
+
+When the above code is executed, it produces the following result −
+
+['d', 'b', 'e', 'c', 'a']
+
+Display graph edges
+
+Finding the graph edges is little tricker than the vertices as we have to find each of the pairs of vertices which have an edge in between them. So we create an empty list of edges then iterate through the edge values associated with each of the vertices. A list is formed containing the distinct group of edges found from the vertices.
+
+class graph:
+   def __init__(self,gdict=None):
+      if gdict is None:
+         gdict = {}
+      self.gdict = gdict
+
+   def edges(self):
+      return self.findedges()
+# Find the distinct list of edges
+   def findedges(self):
+      edgename = []
+      for vrtx in self.gdict:
+         for nxtvrtx in self.gdict[vrtx]:
+            if {nxtvrtx, vrtx} not in edgename:
+               edgename.append({vrtx, nxtvrtx})
+      return edgename
+# Create the dictionary with graph elements
+graph_elements = { 
+   "a" : ["b","c"],
+   "b" : ["a", "d"],
+   "c" : ["a", "d"],
+   "d" : ["e"],
+   "e" : ["d"]
+}
+g = graph(graph_elements)
+print(g.edges())
+
+Output
+
+When the above code is executed, it produces the following result −
+
+[{'b', 'a'}, {'b', 'd'}, {'e', 'd'}, {'a', 'c'}, {'c', 'd'}]
+
+Adding a vertex
+
+Adding a vertex is straight forward where we add another additional key to the graph dictionary.
+Example
+
+class graph:
+   def __init__(self,gdict=None):
+      if gdict is None:
+         gdict = {}
+      self.gdict = gdict
+   def getVertices(self):
+      return list(self.gdict.keys())
+# Add the vertex as a key
+   def addVertex(self, vrtx):
+      if vrtx not in self.gdict:
+         self.gdict[vrtx] = []
+# Create the dictionary with graph elements
+graph_elements = { 
+   "a" : ["b","c"],
+   "b" : ["a", "d"],
+   "c" : ["a", "d"],
+   "d" : ["e"],
+   "e" : ["d"]
+}
+g = graph(graph_elements)
+g.addVertex("f")
+print(g.getVertices())
+
+Output
+
+When the above code is executed, it produces the following result −
+
+['f', 'e', 'b', 'a', 'c','d']
+
+Adding an edge
+
+Adding an edge to an existing graph involves treating the new vertex as a tuple and validating if the edge is already present. If not then the edge is added.
+
+class graph:
+   def __init__(self,gdict=None):
+      if gdict is None:
+         gdict = {}
+      self.gdict = gdict
+   def edges(self):
+      return self.findedges()
+# Add the new edge
+   def AddEdge(self, edge):
+      edge = set(edge)
+      (vrtx1, vrtx2) = tuple(edge)
+      if vrtx1 in self.gdict:
+         self.gdict[vrtx1].append(vrtx2)
+      else:
+         self.gdict[vrtx1] = [vrtx2]
+# List the edge names
+   def findedges(self):
+      edgename = []
+      for vrtx in self.gdict:
+         for nxtvrtx in self.gdict[vrtx]:
+            if {nxtvrtx, vrtx} not in edgename:
+               edgename.append({vrtx, nxtvrtx})
+        return edgename
+# Create the dictionary with graph elements
+graph_elements = { 
+   "a" : ["b","c"],
+   "b" : ["a", "d"],
+   "c" : ["a", "d"],
+   "d" : ["e"],
+   "e" : ["d"]
+}
+g = graph(graph_elements)
+g.AddEdge({'a','e'})
+g.AddEdge({'a','c'})
+print(g.edges())
+
+Output
+
+When the above code is executed, it produces the following result −
+
+[{'e', 'd'}, {'b', 'a'}, {'b', 'd'}, {'a', 'c'}, {'a', 'e'}, {'c', 'd'}]
+
