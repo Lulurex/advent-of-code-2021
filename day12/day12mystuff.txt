@@ -1,0 +1,25 @@
+Big caves (no calls needed)
+start and end - always once
+small caves - 
+	usually the one time
+	but speical case, it can go again.
+	(How to code that we can go again?)
+	recurssive again. 
+
+graph - contains all caves
+one time 
+many times
+2 times
+
+where can you go from the list?
+big caves
+nodes not in path and in the double time if not already in there twice
+
+try to assign doulbe time if empty, but can't be start end' 
+
+  new small end/start twice
+Y  Y   some	1       some
+N  sme   Y      ?       ?
+
+Yes can go if you don't find any doubles and not in start/end 
+
